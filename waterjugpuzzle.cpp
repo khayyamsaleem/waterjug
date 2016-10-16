@@ -12,18 +12,24 @@ struct State {
 
     State(int _a, int _b, int _c) : a(_a), b(_b), c(_c) { };
 
+    State pour(char x, char y, State caps){
+    	State out(a, b, c);
+
+    	return out;
+    };
+
     // String representation of state in tuple form.
     string to_string() {
         ostringstream oss;
         oss << "(" << a << ", " << b << ", " << c << ")";
         return oss.str();
-    }
+    };
 };
 
 
-//void bfs(State initial, State final){
-//
-//}
+void bfs(State initial, State final, State caps){
+
+}
 
 
 int argChecks(int argcount, char *args[]){ //argument checking
