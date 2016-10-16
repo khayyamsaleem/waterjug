@@ -12,6 +12,12 @@ struct State {
 
     State(int _a, int _b, int _c) : a(_a), b(_b), c(_c) { }
 
+//    void pour(char x, char y){
+//    	if (x == 'c' && y == 'a'){
+//    		y - c
+//    	}
+//    }
+
     // String representation of state in tuple form.
     string to_string() {
         ostringstream oss;
