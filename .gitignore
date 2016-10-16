@@ -33,3 +33,5 @@
 
 # Assignment files
 *.pdf
+.cproject*
+.settings*
