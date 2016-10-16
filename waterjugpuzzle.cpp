@@ -10,13 +10,7 @@ struct State {
     int a, b, c;
     vector<string> directions;
 
-    State(int _a, int _b, int _c) : a(_a), b(_b), c(_c) { }
-
-//    void pour(char x, char y){
-//    	if (x == 'c' && y == 'a'){
-//    		y - c
-//    	}
-//    }
+    State(int _a, int _b, int _c) : a(_a), b(_b), c(_c) { };
 
     // String representation of state in tuple form.
     string to_string() {
@@ -25,6 +19,7 @@ struct State {
         return oss.str();
     }
 };
+
 
 //void bfs(State initial, State final){
 //
@@ -82,7 +77,8 @@ int argChecks(int argcount, char *args[]){ //argument checking
 int main(int argc, char *argv[]) {
 
 	argChecks(argc, argv);
-	State i(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
+	State i(0, 0, atoi(argv[3]));
+	State caps(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
 	State f(atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
 //	State s(0, 0, 8);
 //	cout << s.to_string() << endl;
