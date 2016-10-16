@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <cstdlib>
 
 using namespace std;
 
@@ -11,6 +12,12 @@ struct State {
 
     State(int _a, int _b, int _c) : a(_a), b(_b), c(_c) { }
 
+//    void pour(char x, char y){
+//    	if (x == 'c' && y == 'a'){
+//    		y - c
+//    	}
+//    }
+
     // String representation of state in tuple form.
     string to_string() {
         ostringstream oss;
@@ -18,21 +25,6 @@ struct State {
         return oss.str();
     }
 };
-
-int atoi( const char *c ) { //converts chars from argv into ints
-    int value = 0; //accumulator
-    int sign = 1;
-    if( *c == '+' || *c == '-' ) {
-       if( *c == '-' ) sign = -1;
-       c++;
-    }
-    while ( isdigit( *c ) ) {
-        value *= 10; //adds worth of digit to value
-        value += (int) (*c-'0'); // casts digit to int
-        c++;
-    }
-    return value * sign;
-}
 
 //void bfs(State initial, State final){
 //
