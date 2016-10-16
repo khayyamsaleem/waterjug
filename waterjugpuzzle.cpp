@@ -44,7 +44,7 @@ bool argChecks(int argc, char *argv[]) {
 			}
 		}
 		else if (m < 1) {
-			if (i <= 3 && m < 1) {
+			if (i <= 3) {
 				cerr << "Error: Invalid capacity '" << argv[i] << "' for jug " << jugs[i-1] << "." << endl;
 				return true;
 			}
@@ -55,6 +55,7 @@ bool argChecks(int argc, char *argv[]) {
 				}
 			}
 		}
+
 	}
 	for (int i = 1; i < argc; i++) {
 		if ((i < 4) && (atoi(argv[i+3]) > atoi(argv[i]))) {
