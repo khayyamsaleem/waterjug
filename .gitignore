@@ -34,3 +34,5 @@ waterjugpuzzle
 
 # Assignment files
 *.pdf
+.cproject*
+.settings*
