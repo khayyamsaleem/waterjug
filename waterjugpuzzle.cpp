@@ -34,9 +34,10 @@ int atoi( const char *c ) { //converts chars from argv into ints
     return value * sign;
 }
 
-vector<State> bfs(State state){
-
-}
+//vector< vector<State> > bfs(State state){
+//	vector< vector <State> > *V = new vector< vector <State> >;
+//
+//}
 
 int argChecks(int argcount, char *args[]){ //argument checking
 	// had to use multiple for loops over the same exact parameters bc the way the
@@ -90,10 +91,10 @@ int main(int argc, char *argv[]) {
 
 	argChecks(argc, argv);
 
-	State s(0, 0, 8);
-	cout << s.to_string() << endl;
-	s.a += 3;
-	s.c -= 3;
-	cout << s.to_string() << endl;
-	return 0;
+//	State s(0, 0, 8);
+//	cout << s.to_string() << endl;
+//	s.a += 3;
+//	s.c -= 3;
+//	cout << s.to_string() << endl;
+//	return 0;
 }
