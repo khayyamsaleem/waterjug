@@ -2,6 +2,7 @@
 #include <sstream>
 #include <vector>
 #include <cstdlib>
+#include <cassert>
 
 using namespace std;
 
@@ -17,20 +18,30 @@ struct State {
         ostringstream oss;
         oss << "(" << a << ", " << b << ", " << c << ")";
         return oss.str();
-    };
+    }
+
+
+    int& operator[](char x) { // ben helped me think this out
+    	if (x == 'a') return a;
+    	if (x == 'b') return b;
+    	if (x == 'c') return c;
+    	exit(1);
+    }
 };
 
 
-State pour(char x, char y, State i, State caps){
+State pour(char from, char to, State i, State caps){
 	State o = i;
-	if (x == 'c' && y == 'a'){
-		if (i.c + i.a >= caps.a){
-			o.a = caps.a;
-			o.c -= caps.a;
-		} else {
-			o.a += i.c;
-			o.c = 0;
-		}
+
+	if (i[from] + i[to] >= caps[to]){
+		o[from] -= caps[to] - o[to];
+		o[to] = caps[to];
+	} else {
+		o[to] += i[from];
+		o[from] = 0;
+	}
+	for(char z = 'a'; z <= 'c'; ++z){
+		assert(o[z] >= 0);
 	}
 	return o;
 }
@@ -93,14 +104,14 @@ int main(int argc, char *argv[]) {
 	State caps(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
 	State f(atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
 
-//	cout << pour('c', 'a', State(0, 0, 2), caps).to_string() << endl;
-//	argChecks(argc, argv);
-//	State i(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
-//	State f(atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
 //	State s(0, 0, 8);
 //	cout << s.to_string() << endl;
 //	s.a += 3;
 //	s.c -= 3;
 //	cout << s.to_string() << endl;
+	State test1 = pour('c', 'a', i, caps);
+	cout << test1.to_string() << endl;
+	cout << pour('a', 'c', test1, caps).to_string() << endl;
+
 	return 0;
 }
