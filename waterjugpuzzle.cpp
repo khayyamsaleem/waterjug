@@ -40,29 +40,13 @@ bool argChecks(int argc, char *argv[]) {
 	int m;
 	char jugs[3] = {'A', 'B', 'C'};
 
+	if (argc != 7) {
+		cerr << "Usage: " << argv[0] << " <cap A> <cap B> <cap C> <goal A> <goal B> <goal C>" << endl;
+		return true;
+	}
+
 	for (int i = 1; i < argc; i++) {
 		iss.clear();
-<<<<<<< HEAD
-	};
-	for(int i = 1; i < argcount; i++){ // arguments are integers, but bad user input
-		if (atoi(args[i]) < 1){
-			if (i <=3){
-				cerr << "Error: Invalid capacity '" << args[i] << "' for jug " << jugs[i-1] << "." << endl;
-				return 1;
-			} else if (i > 3 && (atoi(args[i]) != 0)){
-				cerr << "Error: Invalid goal '" << args[i] << "' for jug " << jugs[i%4] << "." << endl;
-				return 1;
-			};
-		};
-	};
-	for(int i=1; i < argcount; i++){ // invalid capacity
-		if ((i < 4) && (atoi(args[i+3]) > atoi(args[i]))){
-			cerr << "Error: Goal cannot exceed capacity of jug " << jugs[i-1] <<"." << endl;
-			return 1;
-		};
-	};
-	if (atoi(args[4]) + atoi(args[5]) + atoi(args[6]) != atoi(args[3])){ // invalid goal state
-=======
 		iss.str(argv[i]);
 		if (!(iss >> m)) {
 			if (i <= 3) {
@@ -95,7 +79,6 @@ bool argChecks(int argc, char *argv[]) {
 		}
 	}
 	if (atoi(argv[4]) + atoi(argv[5]) + atoi(argv[6]) != atoi(argv[3])) {
->>>>>>> mrota
 		cerr << "Error: Total gallons in goal state must be equal to the capacity of jug C." << endl;
 		return true;
 	}
@@ -103,33 +86,21 @@ bool argChecks(int argc, char *argv[]) {
 }
 
 int main(int argc, char *argv[]) {
-	if (argc != 7) {
-		cerr << "Usage: " << argv[0] << " <cap A> <cap B> <cap C> <goal A> <goal B> <goal C>" << endl;
-		return 1;
-	}
 	if (argChecks(argc, argv)) {
 		return 1;
 	}
-
-	return 0;
-
-
-<<<<<<< HEAD
-	argChecks(argc, argv);
 	State i(0, 0, atoi(argv[3]));
 	State caps(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
 	State f(atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
 
 //	cout << pour('c', 'a', State(0, 0, 2), caps).to_string() << endl;
-=======
 //	argChecks(argc, argv);
 //	State i(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
 //	State f(atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
->>>>>>> mrota
 //	State s(0, 0, 8);
 //	cout << s.to_string() << endl;
 //	s.a += 3;
 //	s.c -= 3;
 //	cout << s.to_string() << endl;
-//	return 0;
+	return 0;
 }
