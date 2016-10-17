@@ -4,6 +4,7 @@
 #include <vector>
 #include <cstdlib>
 #include <cassert>
+#include <queue>
 
 using namespace std;
 
@@ -35,15 +36,19 @@ struct State {
 };
 
 ostream& operator<<(ostream& o, const vector< vector<State> >& out){
-	o << "{" << endl;
+	if (out.size() == 0){
+		o << "{ { } }";
+		return o;
+	}
+	o << "{" << "\n";
 	for (int i=0; i < out.size(); i++){
 		o << "  {";
 		for(int j = 0; j < out[i].size(); j++){
 			o << out[i][j].to_string() << ", ";
 		}
-		o << "\b \b" << "\b \b" << "}, " << endl;
+		o << "\b \b" << "\b \b" << "}, ";
 	}
-	o << "\b \b" << "\b \b" << "}";
+	o << "\b \b" << "\b \b" << endl << "}";
 	return o;
 }
 
@@ -66,16 +71,7 @@ State pour(char from, char to, State i, State caps){
 vector< vector<State> >* bfs(State i, State f, State c){
 	vector<State> path, path2;
 	vector< vector<State> > *sol = new vector< vector<State> >();
-//	path.push_back(i);
-//	path.push_back(f);
-//	path.push_back(c);
-//	path2.push_back(c);
-//	path2.push_back(f);
-//	path2.push_back(i);
-//	sol->push_back(path);
-//	sol->push_back(path2);
 
-	return sol;
 }
 
 bool argChecks(int argc, char *argv[]) {
@@ -132,23 +128,23 @@ int main(int argc, char *argv[]) {
 	if (argChecks(argc, argv)) {
 		return 1;
 	}
-	State i(0, 0, atoi(argv[3]));
-	State caps(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
-	State f(atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
+//	State i(0, 0, atoi(argv[3]));
+//	State caps(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
+//	State f(atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
 
 //	State s(0, 0, 8);
 //	cout << s.to_string() << endl;
 //	s.a += 3;
 //	s.c -= 3;
 //	cout << s.to_string() << endl;
-	State test1 = pour('c', 'a', i, caps);
-	cout << test1.to_string() << endl;
-	cout << (test1 == pour('c', 'a', pour('a', 'c', test1, caps), caps)) << endl;
+//	State test1 = pour('c', 'a', i, caps);
+//	cout << test1.to_string() << endl;
+//	cout << (test1 == pour('c', 'a', pour('a', 'c', test1, caps), caps)) << endl;
 
-	vector< vector<State> >* psoln = bfs(i, f, caps);
-	vector< vector<State> >& soln = *psoln;
-	cout << soln << endl;
-	delete psoln;
+//	vector< vector<State> >* psoln = bfs(i, f, caps);
+//	vector< vector<State> >& soln = *psoln;
+//	cout << soln << endl;
+//	delete psoln;
 
 	return 0;
 }
