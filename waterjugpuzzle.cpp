@@ -12,12 +12,6 @@ struct State {
 
     State(int _a, int _b, int _c) : a(_a), b(_b), c(_c) { };
 
-    State pour(char x, char y, State caps){
-    	State out(a, b, c);
-
-    	return out;
-    };
-
     // String representation of state in tuple form.
     string to_string() {
         ostringstream oss;
@@ -27,10 +21,19 @@ struct State {
 };
 
 
-void bfs(State initial, State final, State caps){
-
+State pour(char x, char y, State i, State caps){
+	State o = i;
+	if (x == 'c' && y == 'a'){
+		if (i.c + i.a >= caps.a){
+			o.a = caps.a;
+			o.c -= caps.a;
+		} else {
+			o.a += i.c;
+			o.c = 0;
+		}
+	}
+	return o;
 }
-
 
 int argChecks(int argcount, char *args[]){ //argument checking
 	// had to use multiple for loops over the same exact parameters bc the way the
@@ -57,11 +60,11 @@ int argChecks(int argcount, char *args[]){ //argument checking
 		iss.clear();
 	};
 	for(int i = 1; i < argcount; i++){ // arguments are integers, but bad user input
-		if (atoi(args[i]) < 0){
+		if (atoi(args[i]) < 1){
 			if (i <=3){
 				cerr << "Error: Invalid capacity '" << args[i] << "' for jug " << jugs[i-1] << "." << endl;
 				return 1;
-			} else {
+			} else if (i > 3 && (atoi(args[i]) != 0)){
 				cerr << "Error: Invalid goal '" << args[i] << "' for jug " << jugs[i%4] << "." << endl;
 				return 1;
 			};
@@ -86,6 +89,8 @@ int main(int argc, char *argv[]) {
 	State i(0, 0, atoi(argv[3]));
 	State caps(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
 	State f(atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
+
+//	cout << pour('c', 'a', State(0, 0, 2), caps).to_string() << endl;
 //	State s(0, 0, 8);
 //	cout << s.to_string() << endl;
 //	s.a += 3;
