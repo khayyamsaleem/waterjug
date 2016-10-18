@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <cassert>
 #include <queue>
+#include <map>
 
 using namespace std;
 
@@ -35,6 +36,8 @@ struct State {
     }
 };
 
+typedef vector<State> Path;
+
 ostream& operator<<(ostream& o, const vector< vector<State> >& out){
 	if (out.size() == 0){
 		o << "{ { } }";
@@ -49,6 +52,19 @@ ostream& operator<<(ostream& o, const vector< vector<State> >& out){
 		o << "\b \b" << "\b \b" << "}, ";
 	}
 	o << "\b \b" << "\b \b" << endl << "}";
+	return o;
+}
+
+ostream& operator<<(ostream& o, const queue<State>& out){
+	if (out.size() == 0){
+		o << "{ { } }";
+		return o;
+	}
+	o << "{ ";
+	for (int i=0; i < out.size(); i++){
+		o << out.front().to_string() << "->";
+	}
+	o << "\b \b" << "\b \b" << "}";
 	return o;
 }
 
@@ -68,9 +84,15 @@ State pour(char from, char to, State i, State caps){
 	return o;
 }
 
-vector< vector<State> >* bfs(State i, State f, State c){
-	vector<State> path, path2;
-	vector< vector<State> > *sol = new vector< vector<State> >();
+queue< Path >* bfs(State i, State f, State c){
+	queue< Path > *sol = new queue< State >();
+	Path path;
+	path.push_back(i);
+	sol->push(path);
+	while(!(sol->empty())){
+
+	}
+	return sol;
 
 }
 
@@ -128,9 +150,9 @@ int main(int argc, char *argv[]) {
 	if (argChecks(argc, argv)) {
 		return 1;
 	}
-//	State i(0, 0, atoi(argv[3]));
-//	State caps(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
-//	State f(atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
+	State i(0, 0, atoi(argv[3]));
+	State caps(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
+	State f(atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
 
 //	State s(0, 0, 8);
 //	cout << s.to_string() << endl;
@@ -141,10 +163,7 @@ int main(int argc, char *argv[]) {
 //	cout << test1.to_string() << endl;
 //	cout << (test1 == pour('c', 'a', pour('a', 'c', test1, caps), caps)) << endl;
 
-//	vector< vector<State> >* psoln = bfs(i, f, caps);
-//	vector< vector<State> >& soln = *psoln;
-//	cout << soln << endl;
-//	delete psoln;
+	cout << bfs(i, f, caps) << endl;
 
 	return 0;
 }
