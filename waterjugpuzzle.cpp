@@ -116,13 +116,13 @@ Path copyAndPour(Path& p, char from, char to, State cap) {
 Path bfs(State i, State f, State c){
 	map<State, bool> seen;
 
-	queue<Path> *sol = new queue<Path>();
+	queue<Path> sol;
 	Path path;
 	path.push_back(i);
-	sol->push(path);
-	while(!(sol->empty())){
-		Path cur = sol->front();
-		sol->pop();
+	sol.push(path);
+	while(!(sol.empty())){
+		Path cur = sol.front();
+		sol.pop();
 
 		if (cur.back() == f) {
 			return cur;
@@ -133,12 +133,12 @@ Path bfs(State i, State f, State c){
 
 		seen[cur.back()] = true;
 
-		sol->push(copyAndPour(cur, 'c', 'a', c));
-		sol->push(copyAndPour(cur, 'b', 'a', c));
-		sol->push(copyAndPour(cur, 'c', 'b', c));
-		sol->push(copyAndPour(cur, 'a', 'b', c));
-		sol->push(copyAndPour(cur, 'b', 'c', c));
-		sol->push(copyAndPour(cur, 'a', 'c', c));
+		sol.push(copyAndPour(cur, 'c', 'a', c));
+		sol.push(copyAndPour(cur, 'b', 'a', c));
+		sol.push(copyAndPour(cur, 'c', 'b', c));
+		sol.push(copyAndPour(cur, 'a', 'b', c));
+		sol.push(copyAndPour(cur, 'b', 'c', c));
+		sol.push(copyAndPour(cur, 'a', 'c', c));
 	}
 	return Path();
 }
