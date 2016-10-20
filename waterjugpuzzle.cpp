@@ -12,7 +12,7 @@ using namespace std;
 // Struct to represent state of water in the jugs.
 struct State {
     int a, b, c;
-    vector<string> directions;
+//    vector<string> directions;
 
     State(int _a, int _b, int _c) : a(_a), b(_b), c(_c) { };
 
@@ -31,8 +31,14 @@ struct State {
     	exit(1);
     }
 
-    bool operator==(const State& x){ // lets me check if two states are equal to one another
-    	return (this->a == x.a && this->b == x.b && this->c == x.c);
+    friend bool operator<(const State& s, const State& t) {
+    	return s.a < t.a
+    			|| (s.a == t.a && s.b < t.b)
+    			|| (s.a == t.a && s.b == t.b && s.c < t.c);
+    }
+
+    friend bool operator==(const State& x, const State& y){ // lets me check if two states are equal to one another
+    	return (x.a == y.a && x.b == y.b && x.c == y.c);
     }
 };
 
@@ -55,14 +61,29 @@ ostream& operator<<(ostream& o, const vector< vector<State> >& out){
 	return o;
 }
 
-ostream& operator<<(ostream& o, const queue<State>& out){
+//ostream& operator<<(ostream& o, const queue<Path>& out) {
+//	if (out.size() == 0){
+//		o << "{ { } }";
+//		return o;
+//	}
+//	queue<Path> copy = out;
+//	o << "{ ";
+//	for (int i=0; i < copy.size(); i++){
+//		o << copy.front() << "->";
+//		copy.pop();
+//	}
+//	o << "\b \b" << "\b \b" << "}";
+//	return o;
+//}
+
+ostream& operator<<(ostream& o, const Path& out){
 	if (out.size() == 0){
 		o << "{ { } }";
 		return o;
 	}
 	o << "{ ";
 	for (int i=0; i < out.size(); i++){
-		o << out.front().to_string() << "->";
+		o << out[i].to_string() << "->";
 	}
 	o << "\b \b" << "\b \b" << "}";
 	return o;
@@ -84,16 +105,42 @@ State pour(char from, char to, State i, State caps){
 	return o;
 }
 
-queue< Path >* bfs(State i, State f, State c){
-	queue< Path > *sol = new queue< State >();
+Path copyAndPour(Path& p, char from, char to, State cap) {
+	Path copy(p); // make a copy of the path
+	copy.push_back(pour(from, to, p.back(), cap)); // add new state to path
+//	cout << "\tPouring -> " << copy << "\n";
+	return copy;
+}
+
+
+Path bfs(State i, State f, State c){
+	map<State, bool> seen;
+
+	queue<Path> *sol = new queue<Path>();
 	Path path;
 	path.push_back(i);
 	sol->push(path);
 	while(!(sol->empty())){
+		Path cur = sol->front();
+		sol->pop();
 
+		if (cur.back() == f) {
+			return cur;
+		}
+
+		if (seen[cur.back()])
+			continue;
+
+		seen[cur.back()] = true;
+
+		sol->push(copyAndPour(cur, 'c', 'a', c));
+		sol->push(copyAndPour(cur, 'b', 'a', c));
+		sol->push(copyAndPour(cur, 'c', 'b', c));
+		sol->push(copyAndPour(cur, 'a', 'b', c));
+		sol->push(copyAndPour(cur, 'b', 'c', c));
+		sol->push(copyAndPour(cur, 'a', 'c', c));
 	}
-	return sol;
-
+	return Path();
 }
 
 bool argChecks(int argc, char *argv[]) {
