@@ -1,7 +1,7 @@
 // Khayyam Saleem and Matthew Rota
 // CS385 -- WaterJug
 // We pledge our honor that we have abided by the Stevens Honor System.
-// Please enjoy the advanced af code
+// Please enjoy the super advanced code
 
 #include <iostream>
 #include <sstream>
@@ -49,6 +49,7 @@ struct State {
     }
 };
 
+
 typedef vector<State> Path; //typedef is nice
 
 State pour(char from, char to, State i, State caps){ //pours from one jug to another, returns the result of the pour
@@ -67,7 +68,7 @@ State pour(char from, char to, State i, State caps){ //pours from one jug to ano
 	return o;
 }
 
-Path copyAndPour(Path& p, char from, char to, State cap) { //makes a copy of the pour so that we can add a path to the queue
+Path copyAndPour(Path& p, char from, char to, State cap) { //makes a copy of the pour so we can add a path to the queue
 	Path copy(p); // make a copy of the path
 	copy.push_back(pour(from, to, p.back(), cap)); // add new state to path
 //	cout << "\tPouring -> " << copy << "\n";
@@ -161,8 +162,8 @@ void printSol(Path solution){
 		cout << "No solution." << endl;
 	}
 	else{
-		cout << "Initial state. " << solution[0].to_string() << endl;
-		for (unsigned i=1; i < solution.size(); i++){
+		cout << "Initial state. " << solution[0].to_string() << endl; // always need the initial state
+		for (unsigned i=1; i < solution.size(); i++){ //computing pours, also variables are ints by default???
 			int diffa = solution[i-1].a - solution[i].a;
 			int diffb = solution[i-1].b - solution[i].b;
 			int diffc = solution[i-1].c - solution[i].c;
@@ -181,6 +182,7 @@ void printSol(Path solution){
 				from = 'C';
 			}
 
+			//ternary operator is cool
 			string gallons = fromAmount == 1 ? "gallon" : "gallons"; //r u kidding me?!?!?!? grammar, dr. b????
 			cout << fromAmount << " " << gallons << " from " << from << " to ";
 
@@ -191,6 +193,7 @@ void printSol(Path solution){
 			} else if (diffc < 0) {
 				cout << 'C';
 			}
+
 
 			cout << ". " << solution[i].to_string() << endl;
 		}
