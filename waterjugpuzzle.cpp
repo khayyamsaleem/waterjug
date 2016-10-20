@@ -43,51 +43,6 @@ struct State {
 };
 
 typedef vector<State> Path;
-//
-//ostream& operator<<(ostream& o, const vector< vector<State> >& out){
-//	if (out.size() == 0){
-//		o << "{ { } }";
-//		return o;
-//	}
-//	o << "{" << "\n";
-//	for (unsigned i=0; i < out.size(); i++){
-//		o << "  {";
-//		for(unsigned j = 0; j < out[i].size(); j++){
-//			o << out[i][j].to_string() << ", ";
-//		}
-//		o << "\b \b" << "\b \b" << "}, ";
-//	}
-//	o << "\b \b" << "\b \b" << endl << "}";
-//	return o;
-//}
-
-//ostream& operator<<(ostream& o, const queue<Path>& out) {
-//	if (out.size() == 0){
-//		o << "{ { } }";
-//		return o;
-//	}
-//	queue<Path> copy = out;
-//	o << "{ ";
-//	for (int i=0; i < copy.size(); i++){
-//		o << copy.front() << "->";
-//		copy.pop();
-//	}
-//	o << "\b \b" << "\b \b" << "}";
-//	return o;
-//}
-//
-//ostream& operator<<(ostream& o, const Path& out){
-//	if (out.size() == 0){
-//		o << "{ { } }";
-//		return o;
-//	}
-//	o << "{ ";
-//	for (unsigned int i=0; i < out.size(); i++){
-//		o << out[i].to_string() << "->";
-//	}
-//	o << "\b \b" << "\b \b" << "}";
-//	return o;
-//}
 
 State pour(char from, char to, State i, State caps){
 	State o = i;
