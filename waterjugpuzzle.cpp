@@ -52,6 +52,15 @@ struct State {
 
 typedef vector<State> Path; //typedef is nice
 
+ostream& operator<<(ostream& o, const Path& path){ //prints a path, for testing purposes
+	o << "{  ";
+	for (unsigned i = 0; i < path.size(); i++){
+		o << path[i].to_string() << "->";
+	}
+	o << "\b \b" << "\b \b " << " }" << endl;
+	return o;
+}
+
 State pour(char from, char to, State i, State caps){ //pours from one jug to another, returns the result of the pour
 	State o = i;
 
@@ -157,48 +166,48 @@ bool argChecks(int argc, char *argv[]) {
 	return false;
 }
 
-void printSol(Path solution){
-	if (solution.size() == 0){ //If you received an empty path, then there was no solution
-		cout << "No solution." << endl;
-	}
-	else{
-		cout << "Initial state. " << solution[0].to_string() << endl; // always need the initial state
-		for (unsigned i=1; i < solution.size(); i++){ //computing pours, also variables are ints by default???
-			int diffa = solution[i-1].a - solution[i].a;
-			int diffb = solution[i-1].b - solution[i].b;
-			int diffc = solution[i-1].c - solution[i].c;
-
-			cout << "Pour ";
-			char from = '?';
-			int fromAmount = 0;
-			if (diffa > 0) {
-				fromAmount = diffa;
-				from = 'A';
-			} else if (diffb > 0) {
-				fromAmount = diffb;
-				from = 'B';
-			} else if (diffc > 0) {
-				fromAmount = diffc;
-				from = 'C';
-			}
-
-			//ternary operator is cool
-			string gallons = fromAmount == 1 ? "gallon" : "gallons"; //r u kidding me?!?!?!? grammar, dr. b????
-			cout << fromAmount << " " << gallons << " from " << from << " to ";
-
-			if (diffa < 0) {
-				cout << 'A';
-			} else if (diffb < 0) {
-				cout << 'B';
-			} else if (diffc < 0) {
-				cout << 'C';
-			}
-
-
-			cout << ". " << solution[i].to_string() << endl;
-		}
-	}
-}
+//void printSol(Path solution){
+//	if (solution.size() == 0){ //If you received an empty path, then there was no solution
+//		cout << "No solution." << endl;
+//	}
+//	else{
+//		cout << "Initial state. " << solution[0].to_string() << endl; // always need the initial state
+//		for (unsigned i=1; i < solution.size(); i++){ //computing pours, also variables are ints by default???
+//			int diffa = solution[i-1].a - solution[i].a;
+//			int diffb = solution[i-1].b - solution[i].b;
+//			int diffc = solution[i-1].c - solution[i].c;
+//
+//			cout << "Pour ";
+//			char from = '?';
+//			int fromAmount = 0;
+//			if (diffa > 0) {
+//				fromAmount = diffa;
+//				from = 'A';
+//			} else if (diffb > 0) {
+//				fromAmount = diffb;
+//				from = 'B';
+//			} else if (diffc > 0) {
+//				fromAmount = diffc;
+//				from = 'C';
+//			}
+//
+//			//ternary operator is cool
+//			string gallons = fromAmount == 1 ? "gallon" : "gallons"; //r u kidding me?!?!?!? grammar, dr. b????
+//			cout << fromAmount << " " << gallons << " from " << from << " to ";
+//
+//			if (diffa < 0) {
+//				cout << 'A';
+//			} else if (diffb < 0) {
+//				cout << 'B';
+//			} else if (diffc < 0) {
+//				cout << 'C';
+//			}
+//
+//
+//			cout << ". " << solution[i].to_string() << endl;
+//		}
+//	}
+//}
 
 int main(int argc, char *argv[]) {
 	if (argChecks(argc, argv)) {
@@ -208,7 +217,7 @@ int main(int argc, char *argv[]) {
 	State caps(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
 	State f(atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
 
-	printSol(bfs(i, f, caps));
+	cout << bfs(i, f, caps) << endl;
 
 //	State s(0, 0, 8);
 //	cout << s.to_string() << endl;
