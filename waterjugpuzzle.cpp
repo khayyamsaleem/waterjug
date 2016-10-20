@@ -210,7 +210,45 @@ int main(int argc, char *argv[]) {
 //	cout << test1.to_string() << endl;
 //	cout << (test1 == pour('c', 'a', pour('a', 'c', test1, caps), caps)) << endl;
 
-	cout << bfs(i, f, caps) << endl;
+	Path solution = bfs(i, f, caps);
+	if (solution.size() == 0){
+		cout << "No solution." << endl;
+	}
+	else{
+		cout << "Initial state. " << solution[0].to_string() << endl;
+		for (int i=1; i < solution.size(); i++){
+			int diffa = solution[i-1].a - solution[i].a;
+			int diffb = solution[i-1].b - solution[i].b;
+			int diffc = solution[i-1].c - solution[i].c;
+
+			cout << "Pour ";
+			char from = '?';
+			int fromAmount = 0;
+			if (diffa > 0) {
+				fromAmount = diffa;
+				from = 'A';
+			} else if (diffb > 0) {
+				fromAmount = diffb;
+				from = 'B';
+			} else if (diffc > 0) {
+				fromAmount = diffc;
+				from = 'C';
+			}
+
+			string gallons = fromAmount == 1 ? "gallon" : "gallons"; //r u kidding me?!?!?!? grammar dr. b????
+			cout << fromAmount << " " << gallons << " from " << from << " to ";
+
+			if (diffa < 0) {
+				cout << 'A';
+			} else if (diffb < 0) {
+				cout << 'B';
+			} else if (diffc < 0) {
+				cout << 'C';
+			}
+
+			cout << ". " << solution[i].to_string() << endl;
+		}
+	}
 
 	return 0;
 }
