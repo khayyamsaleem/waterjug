@@ -11,10 +11,10 @@ using namespace std;
 
 // Struct to represent state of water in the jugs.
 struct State {
-    unsigned int a, b, c;
+    int a, b, c;
 //    vector<string> directions;
 
-    State(unsigned int _a, unsigned int _b, unsigned int _c) : a(_a), b(_b), c(_c) { };
+    State(int _a, int _b, int _c) : a(_a), b(_b), c(_c) { };
 
     // String representation of state in tuple form.
     string to_string() const {
@@ -24,7 +24,7 @@ struct State {
     }
 
 
-    unsigned int& operator[](char x) { // lets me access member vars like an array, v cool
+    int& operator[](char x) { // lets me access member vars like an array, v cool
     	if (x == 'a') return a;
     	if (x == 'b') return b;
     	if (x == 'c') return c;
@@ -50,9 +50,9 @@ ostream& operator<<(ostream& o, const vector< vector<State> >& out){
 		return o;
 	}
 	o << "{" << "\n";
-	for (unsigned int i=0; i < out.size(); i++){
+	for (int i=0; i < out.size(); i++){
 		o << "  {";
-		for(unsigned int j = 0; j < out[i].size(); j++){
+		for(int j = 0; j < out[i].size(); j++){
 			o << out[i][j].to_string() << ", ";
 		}
 		o << "\b \b" << "\b \b" << "}, ";
@@ -68,7 +68,7 @@ ostream& operator<<(ostream& o, const vector< vector<State> >& out){
 //	}
 //	queue<Path> copy = out;
 //	o << "{ ";
-//	for (unsigned int i=0; i < copy.size(); i++){
+//	for (int i=0; i < copy.size(); i++){
 //		o << copy.front() << "->";
 //		copy.pop();
 //	}
@@ -82,7 +82,7 @@ ostream& operator<<(ostream& o, const Path& out){
 		return o;
 	}
 	o << "{ ";
-	for (unsigned int i=0; i < out.size(); i++){
+	for (int i=0; i < out.size(); i++){
 		o << out[i].to_string() << "->";
 	}
 	o << "\b \b" << "\b \b" << "}";
@@ -143,9 +143,9 @@ Path bfs(State i, State f, State c){
 	return Path();
 }
 
-bool argChecks(unsigned int argc, char *argv[]) {
+bool argChecks(int argc, char *argv[]) {
 	istringstream iss;
-	unsigned int m;
+	int m;
 	char jugs[3] = {'A', 'B', 'C'};
 
 	if (argc != 7) {
@@ -153,7 +153,7 @@ bool argChecks(unsigned int argc, char *argv[]) {
 		return true;
 	}
 
-	for (unsigned int i = 1; i < argc; i++) {
+	for (int i = 1; i < argc; i++) {
 		iss.clear();
 		iss.str(argv[i]);
 		if (!(iss >> m)) {
@@ -180,7 +180,7 @@ bool argChecks(unsigned int argc, char *argv[]) {
 		}
 
 	}
-	for (unsigned int i = 1; i < argc; i++) {
+	for (int i = 1; i < argc; i++) {
 		if ((i < 4) && (atoi(argv[i+3]) > atoi(argv[i]))) {
 			cerr << "Error: Goal cannot exceed capacity of jug " << jugs[i-1] << "." << endl;
 			return true;
@@ -193,7 +193,7 @@ bool argChecks(unsigned int argc, char *argv[]) {
 	return false;
 }
 
-unsigned int main(unsigned int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
 	if (argChecks(argc, argv)) {
 		return 1;
 	}
@@ -216,14 +216,14 @@ unsigned int main(unsigned int argc, char *argv[]) {
 	}
 	else{
 		cout << "Initial state. " << solution[0].to_string() << endl;
-		for (unsigned int i=1; i < solution.size(); i++){
-			unsigned int diffa = solution[i-1].a - solution[i].a;
-			unsigned int diffb = solution[i-1].b - solution[i].b;
-			unsigned int diffc = solution[i-1].c - solution[i].c;
+		for (int i=1; i < solution.size(); i++){
+			int diffa = solution[i-1].a - solution[i].a;
+			int diffb = solution[i-1].b - solution[i].b;
+			int diffc = solution[i-1].c - solution[i].c;
 
 			cout << "Pour ";
 			char from = '?';
-			unsigned int fromAmount = 0;
+			int fromAmount = 0;
 			if (diffa > 0) {
 				fromAmount = diffa;
 				from = 'A';
