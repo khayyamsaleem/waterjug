@@ -8,7 +8,6 @@
 #include <ostream>
 #include <vector>
 #include <cstdlib>
-#include <cassert>
 #include <queue>
 #include <map>
 
@@ -50,6 +49,7 @@ struct State {
 };
 
 
+
 typedef vector<State> Path; //typedef is nice
 
 State pour(char from, char to, State i, State caps){ //pours from one jug to another, returns the result of the pour
@@ -62,9 +62,9 @@ State pour(char from, char to, State i, State caps){ //pours from one jug to ano
 		o[to] += i[from];
 		o[from] = 0;
 	}
-	for(char z = 'a'; z <= 'c'; ++z){
-		assert(o[z] >= 0); //make sure it's never negative bc that just doesn't make sense
-	}
+//	for(char z = 'a'; z <= 'c'; ++z){
+//		assert(o[z] >= 0); //make sure it's never negative bc that just doesn't make sense
+//	}
 	return o;
 }
 
